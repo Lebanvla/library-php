@@ -4,7 +4,10 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Common\\": "App/Common/"
+            "Common\\": "App/Common/",
+            "Controller\\": "App/MVC/Controller",
+            "Model\\": "App/MVC/Model"
+
         }
     },
     "authors": [
