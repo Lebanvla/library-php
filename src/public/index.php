@@ -12,9 +12,12 @@ if (Config::getMode() === "development") {
 }
 
 use Common\Router;
+use Controller\ReaderController;
 
 $router = new Router();
-
+$router->get("readers_list", function () {
+    ReaderController::list();
+});
 try {
     $router->run();
 } catch (Exception $e) {
