@@ -30,8 +30,7 @@ abstract class Controller
 
         if (!file_exists($viewFileName)) {
             throw new \InvalidArgumentException(
-                "View file not found: {$viewFileName}. " .
-                    "Checked path: " . realpath(self::VIEWS_DIR) . "/{$name}.php"
+                "Файл представления не был найден: {$viewFileName}"
             );
         }
 

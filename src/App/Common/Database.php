@@ -7,7 +7,7 @@ use Common\Config;
 
 class Database
 {
-    private static Self $instance;
+    private static ?Self $instance = null;
     private PDO $connection;
     private function __construct()
     {
