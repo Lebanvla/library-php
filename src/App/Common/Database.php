@@ -49,8 +49,8 @@ class Database
     {
         $stmt = self::getConnection()->prepare($sql);
 
-        foreach ($params as $param => [$value, $type]) {
-            $stmt->bindValue($param, $value, $type);
+        foreach ($params as $paramName => $paramData) {  // $paramName = ':offset'
+            $stmt->bindValue($paramName, $paramData["value"], $paramData["type"]);
         }
 
         $stmt->execute();
