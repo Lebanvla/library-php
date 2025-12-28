@@ -49,8 +49,10 @@ class Router
     public function run()
     {
         if (!isset($this->registredActions[$this->method][$this->action])) {
-            throw new \Exception("Это действие не зарегистрировано");
+            throw new RouterException("Это действие не зарегистрировано");
         }
         $this->registredActions[$this->method][$this->action]();
     }
 }
+
+class RouterException extends \Exception {}

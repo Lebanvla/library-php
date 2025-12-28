@@ -12,15 +12,16 @@ class Config
             'APP_ENV' => getenv('APP_ENV'),
             'APP_HOST' => getenv('DB_HOST'),
             'DB_NAME' => getenv('DB_NAME'),
-            'DB_USERNAME' => getenv('DB_USER'),
+            'DB_USERNAME' => getenv('DB_USERNAME'),
             'DB_PASSWORD' => getenv('DB_PASSWORD'),
             'APACHE_PORT' => getenv('APACHE_PORT'),
             'MYSQL_PORT' => getenv('MYSQL_PORT'),
-            'DB_DATABASE' => getenv('DB_DATABASE')
+            'DB_DATABASE' => getenv('DB_DATABASE'),
+            'DB_HOST' => getenv('DB_HOST')
         ];
 
 
-        $required = ['DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD', 'APP_ENV'];
+        $required = ['DB_DATABASE', 'DB_USERNAME', 'DB_PASSWORD', 'APP_ENV', 'DB_HOST'];
         foreach ($required as $key) {
             if (!isset(self::$configData[$key])) {
                 throw new \RuntimeException("Missing required ENV variable: {$key}");
@@ -54,10 +55,15 @@ class Config
     public static function getDbDsn(): string
     {
         return sprintf(
-            'mysql:host=%s;dbname=%s;charset=utf8mb4',
+            'mysql:host=%s;dbname=%s;charset=utf8mb4;port=3306',
             self::getAppHost(),
             self::getDbName()
         );
+    }
+
+    public static function getDBHost(): string
+    {
+        return self::$configData['DB_HOST'];
     }
 
     public static function getAppHost(): string
