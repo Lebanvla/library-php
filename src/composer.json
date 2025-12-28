@@ -1,0 +1,16 @@
+{
+    "name": "lebanvla/library",
+    "description": "Library Management System", 
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Common\\": "App/Common/"
+        }
+    },
+    "authors": [
+        {
+            "name": "lebanvla"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,59 @@
+<?php
+
+namespace Common;
+
+use PDO;
+use Common\Config;
+
+class Database
+{
+    private static Self $instance;
+    private PDO $connection;
+    private function __construct()
+    {
+        $this->connection = new PDO(
+            Config::getDbDsn(),
+            Config::getDbUser(),
+            Config::getDbPassword(),
+            [
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]
+        );
+    }
+
+    public function __wakeup()
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    public function __clone()
+    {
+        throw new \Exception('Not implemented');
+    }
+
+    public static function getInstance(): Self
+    {
+        if (self::$instance === null) {
+            self::$instance = new Self();
+        }
+        return self::$instance;
+    }
+
+    public static function getConnection(): PDO
+    {
+        return self::getInstance()->connection;
+    }
+
+    public static function query(string $sql, array $params = []): array
+    {
+        $stmt = self::getConnection()->prepare($sql);
+
+        foreach ($params as $param => [$value, $type]) {
+            $stmt->bindValue($param, $value, $type);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+}
